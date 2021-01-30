@@ -16,6 +16,6 @@ jobs:
         with:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          registry: docker.pkg.github.com
-          repository: rascoro1/dev-utils/dev-utils
+          registry: ghcr.io/
+          repository: rascoro1/dev-utils:latest
           tag_with_ref: true
