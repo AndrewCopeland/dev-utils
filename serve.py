@@ -26,15 +26,12 @@ def pretty_print_xml():
     js_file = "pprint-xml.js"
     return render_template('input-output.html', input_message=input_message, output_message=output_message, js_file=js_file)
 
-
-
 @app.route("/minify/json")
 def minify_json():
     input_message = "copy json string into text area:"
     output_message = "minified json:"
     js_file = "minify-json.js"
     return render_template('input-output.html', input_message=input_message, output_message=output_message, js_file=js_file)
-
 
 @app.route("/encode/base64")
 def encode_base64():
@@ -63,7 +60,6 @@ def decode_url():
     output_message = "url decoded string:"
     js_file = "decode-url.js"
     return render_template('input-output.html', input_message=input_message, output_message=output_message, js_file=js_file)
-
 
 @app.route("/hash/md5")
 def hash_md5():
