@@ -17,5 +17,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
           registry: ghcr.io
-          repository: rascoro1/dev-utils:latest
+          repository: rascoro1/dev-utils
           tag_with_ref: true
