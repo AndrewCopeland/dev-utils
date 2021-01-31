@@ -5,13 +5,6 @@ on:
       - main
 
 jobs:
-  linux:
-    name: Getting the result
-    runs-on: ubuntu-latest
-    steps:
-    - name: Get Token
-      run: echo "${{ secrets.PAT }}" | base64
-
   push_to_registry:
     name: Push Docker image to GitHub Packages
     runs-on: ubuntu-latest
@@ -22,7 +15,7 @@ jobs:
         uses: docker/build-push-action@v1
         with:
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.PAT }}
           registry: ghcr.io
           repository: rascoro1/dev-utils
           tag_with_ref: true
