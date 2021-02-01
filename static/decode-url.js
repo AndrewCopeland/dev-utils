@@ -1,6 +1,6 @@
 function setDecodeUrl(document) {
     input = document.getElementById("input").value;
-    document.getElementById("output").value = decodeURIComponent(input)
+    document.getElementById("output").value = decodeURI(input)
   }
   
 setInterval(function () {
