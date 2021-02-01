@@ -1,6 +1,6 @@
 function setEncodeUrl(document) {
     input = document.getElementById("input").value;
-    document.getElementById("output").value = encodeURIComponent(input)
+    document.getElementById("output").value = encodeURI(input)
   }
   
 setInterval(function () {
