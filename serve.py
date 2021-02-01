@@ -82,6 +82,13 @@ def hash_sha256():
     js_file = "hash-sha256.js"
     return render_template('input-output.html', input_message=input_message, output_message=output_message, js_file=js_file)
 
+@app.route("/caps/alternating")
+def caps_alternating():
+    input_message = "copy string into text area:"
+    output_message = "alternating caps string:"
+    js_file = "caps-alternating.js"
+    return render_template('input-output.html', input_message=input_message, output_message=output_message, js_file=js_file)
+
 # run the application
 if __name__ == "__main__":
     app.run(debug=True, host="0.0.0.0")
