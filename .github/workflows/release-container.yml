@@ -55,6 +55,7 @@ jobs:
       - name: deploy
         uses: google-github-actions/deploy-cloudrun@main
         with:
+          region: us-east1
           image: $DOCKER_TAG
           service: dev-utils
           credentials: ${{ secrets.GCLOUD }}
