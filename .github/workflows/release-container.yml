@@ -24,7 +24,14 @@ jobs:
   deploy:
     name: Deploy to Google Cloud Run
     runs-on: ubuntu-latest
+    env:
+      DOCKER_TAG: us.gcr.io/${{ secrets.PROJECT_ID }}/dev-utils
+
     steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      # Setup gcloud CLI
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@master
         with:
@@ -32,9 +39,22 @@ jobs:
           service_account_key: ${{ secrets.GCLOUD }}
           export_default_credentials: true
 
+      # Build docker image
+      - name: Image
+        run: |-
+          docker build -t $DOCKER_TAG .
+
+      # Configure docker to use the gcloud command-line tool as a credential helper
+      - run: |
+          gcloud auth configure-docker -q
+
+      - name: Push to GCR
+        run: |-
+          docker push $DOCKER_TAG
+
       - name: deploy
         uses: google-github-actions/deploy-cloudrun@main
         with:
-          image: us.gcr.io/${{ secrets.PROJECT_ID }}/dev-utils
+          image: $DOCKER_TAG
           service: dev-utils
           credentials: ${{ secrets.GCLOUD }}
