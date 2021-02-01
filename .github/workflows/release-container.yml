@@ -9,8 +9,9 @@ jobs:
     name: Push Docker image to GitHub Packages
     runs-on: ubuntu-latest
     steps:
-      - name: Check out the repo
+      - name: Checkout
         uses: actions/checkout@v2
+
       - name: Push to GitHub Packages
         uses: docker/build-push-action@v1
         with:
@@ -19,3 +20,32 @@ jobs:
           registry: ghcr.io
           repository: rascoro1/dev-utils
           tag_with_ref: true
+
+  deploy:
+    name: Deploy to Google Cloud Run
+    runs-on: ubuntu-latest
+    steps:
+      # Setup gcloud CLI
+      - name: Set up Cloud SDK
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.PROJECT_ID }}
+          service_account_key: ${{ secrets.GCLOUD }}
+          export_default_credentials: true
+
+      - name: Push container to GCR
+        uses: raccoondev/push-docker-gcr
+        with:
+          gcr_host: us.gcr.io
+          image_name: dev-utils
+          image_tag: latest
+          env:
+            GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD }}
+            GOOGLE_PROJECT_ID: ${{ secrets.PROJECT_ID }}
+
+      - name: deploy
+        uses: google-github-actions/deploy-cloudrun@main
+        with:
+          image: us.gcr.io/${{ secrets.PROJECT_ID }}/dev-utils
+          service: dev-utils
+          credentials: ${{ secrets.GCLOUD }}
