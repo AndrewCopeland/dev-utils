@@ -25,23 +25,12 @@ jobs:
     name: Deploy to Google Cloud Run
     runs-on: ubuntu-latest
     steps:
-      # Setup gcloud CLI
       - name: Set up Cloud SDK
         uses: google-github-actions/setup-gcloud@master
         with:
           project_id: ${{ secrets.PROJECT_ID }}
           service_account_key: ${{ secrets.GCLOUD }}
           export_default_credentials: true
-
-      - name: Push container to GCR
-        uses: raccoondev/push-docker-gcr
-        with:
-          gcr_host: us.gcr.io
-          image_name: dev-utils
-          image_tag: latest
-          env:
-            GCLOUD_SERVICE_KEY: ${{ secrets.GCLOUD }}
-            GOOGLE_PROJECT_ID: ${{ secrets.PROJECT_ID }}
 
       - name: deploy
         uses: google-github-actions/deploy-cloudrun@main
