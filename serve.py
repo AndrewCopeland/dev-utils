@@ -61,6 +61,13 @@ def decode_url():
     js_file = "decode-url.js"
     return render_template('input-output.html', input_message=input_message, output_message=output_message, js_file=js_file)
 
+@app.route("/decode/jwt")
+def decode_jwt():
+    input_message = "copy JWT into text area:"
+    output_message = "decoded JWT:"
+    js_file = "decode-jwt.js"
+    return render_template('input-output.html', input_message=input_message, output_message=output_message, js_file=js_file)
+
 @app.route("/hash/md5")
 def hash_md5():
     input_message = "copy string into text area:"
